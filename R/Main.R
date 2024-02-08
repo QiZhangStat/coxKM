@@ -44,7 +44,7 @@ coxKM <- function(Z=NULL, U, Delta, X = NULL, gamma = NULL, kernel = "linear", w
           # check dimensions when kernel matrix is supplied
 	  # if kernel matrix is supplied, Z is not required
 
-	  if(!is.element("matrix",class(kernel))){ 
+	  if(is.element("matrix",class(kernel))){ 
 	  	if(nrow(kernel)!= ncol(kernel)) stop("kernel is not a square matrix.")
         	if(nrow(kernel)!=length(Delta)) stop("Dimensions of U and Delta do not match")
         	if(length(U)!=length(Delta)) stop("Dimensions of U and Delta do not match")
@@ -119,7 +119,7 @@ coxKM <- function(Z=NULL, U, Delta, X = NULL, gamma = NULL, kernel = "linear", w
 	#-------------------------------------
 	# Get the kernel matrix
 
-	if (!is.element("matrix",class(kernel))) {
+	if (is.element("matrix",class(kernel))) {
 		kernel.matrix <- kernel
 	}else{
 		kernel.matrix <- lskmTest.GetKernel(Z, kernel, weights, n=nrow(Z), m=ncol(Z)) # n x n, has to be a matrix
