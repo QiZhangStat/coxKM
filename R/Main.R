@@ -11,7 +11,7 @@ coxKM <- function(Z=NULL, U, Delta, X = NULL, gamma = NULL, kernel = "linear", w
           # check dimensions when kernel matrix is not supplied
 	  # if kernel matrix is supplied, Z is not required
 
-	  if(class(kernel) != "matrix"){ 
+	  if(!is.element("matrix",class(kernel))){ 
 	  	
 	  	
 	  #-------------------------------------
