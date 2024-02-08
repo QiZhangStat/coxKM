@@ -21,13 +21,13 @@ coxKM <- function(Z=NULL, U, Delta, X = NULL, gamma = NULL, kernel = "linear", w
       if(is.null(weights)==TRUE & kernel=="linear.weighted") stop("For weighted kernels, weights must be specified.")
 	  #-------------------------------------
 	  	
-	  	if(class(Z)!= "matrix") stop("Z is not a matrix.")
+	  	if(!is.element("matrix",class(Z)) ) stop("Z is not a matrix.")
         	if(nrow(Z)!=length(U)) stop("Dimensions of Z and U do not match")
         	if(nrow(Z)!=length(Delta)) stop("Dimensions of Z and Delta do not match")
 	  
 
 	 	if(!is.null(X)){
-	   	   if(class(X)!= "matrix") stop("X is not a matrix.")
+	   	   if(!is.element("matrix",class(X))) stop("X is not a matrix.")
         	   if(nrow(X)!= nrow(Z)) stop("Dimensions of X and Z don't match.")
 	  	}
 
@@ -44,14 +44,14 @@ coxKM <- function(Z=NULL, U, Delta, X = NULL, gamma = NULL, kernel = "linear", w
           # check dimensions when kernel matrix is supplied
 	  # if kernel matrix is supplied, Z is not required
 
-	  if(class(kernel) == "matrix"){ 
+	  if(!is.element("matrix",class(kernel))){ 
 	  	if(nrow(kernel)!= ncol(kernel)) stop("kernel is not a square matrix.")
         	if(nrow(kernel)!=length(Delta)) stop("Dimensions of U and Delta do not match")
         	if(length(U)!=length(Delta)) stop("Dimensions of U and Delta do not match")
 	  
 
 	 	 if(!is.null(X)){
-	   	   if(class(X)!= "matrix") stop("X is not a matrix.")
+	   	   if(!is.element("matrix",class(X))) stop("X is not a matrix.")
         		if(nrow(X)!= length(U)) stop("Dimensions of X and U don't match.")
 	  	}
 	  }
@@ -87,7 +87,7 @@ coxKM <- function(Z=NULL, U, Delta, X = NULL, gamma = NULL, kernel = "linear", w
 	#-------------------------------------
 	# check Z and impute when kernel matrix is not supplied
 
-	if(class(kernel) != "matrix"){ 
+	if(!is.element("matrix",class(kernel))){ 
  	if(is_dosage ==TRUE){
 		impute.method="fixed"
 	}
@@ -119,7 +119,7 @@ coxKM <- function(Z=NULL, U, Delta, X = NULL, gamma = NULL, kernel = "linear", w
 	#-------------------------------------
 	# Get the kernel matrix
 
-	if (class(kernel) == "matrix") {
+	if (!is.element("matrix",class(kernel))) {
 		kernel.matrix <- kernel
 	}else{
 		kernel.matrix <- lskmTest.GetKernel(Z, kernel, weights, n=nrow(Z), m=ncol(Z)) # n x n, has to be a matrix
